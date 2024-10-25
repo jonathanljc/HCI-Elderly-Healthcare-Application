@@ -1,31 +1,25 @@
 // TaskList.jsx
-import React, { useState } from 'react';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './TaskList.css';
-import Modal from './Modal'; // Import the Modal component
 
 const TaskList = ({ tasks, onAddTask, onEditTask }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedTask, setSelectedTask] = useState(null);
-
-  const openModal = (task) => {
-    setSelectedTask(task);
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setSelectedTask(null);
-  };
+  const navigate = useNavigate();
 
   return (
     <div className="task-list">
       <header className="task-list-header">
-        <button className="back-button" onClick={() => onAddTask('back')}>Back</button>
+        <button className="back-button" onClick={() => navigate('/')}>Back</button>
         <h2>Tasks</h2>
-        <button className="edit-button" onClick={onEditTask}>Edit</button>
+        <button 
+          className="edit-button" 
+          onClick={() => navigate('/edit-task')} // Redirect to Edit page
+        >
+          Edit
+        </button>
       </header>
       <ul className="task-items">
-        {tasks.map((task, index) => (
+        {tasks.length > 0 ? tasks.map((task, index) => (
           <li key={index} className="task-item">
             <div className="task-checkbox-title">
               <input type="checkbox" className="task-checkbox" />
@@ -34,14 +28,15 @@ const TaskList = ({ tasks, onAddTask, onEditTask }) => {
                 <div className="task-description">{task.description}</div>
               </div>
             </div>
-            <button className="view-button" onClick={() => openModal(task)}>View</button>
+            <button 
+              className="view-button" 
+              onClick={() => navigate('/task-detail', { state: { task } })}>
+              View
+            </button>
           </li>
-        ))}
+        )) : <li>No tasks available.</li>}
       </ul>
       <button className="add-task-button" onClick={onAddTask}>Add Task</button>
-
-      {/* Modal for viewing task details */}
-      <Modal isOpen={isModalOpen} onClose={closeModal} task={selectedTask} />
     </div>
   );
 };

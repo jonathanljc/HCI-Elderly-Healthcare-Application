@@ -1,0 +1,59 @@
+/* AddTask.css */
+.add-task-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Full height of the container */
+    padding: 20px; /* Padding to add spacing */
+}
+
+.add-task-header {
+    display: flex;
+    justify-content: space-between; /* Space between buttons and title */
+    align-items: center;
+    margin-bottom: 20px; /* Space below header */
+}
+
+.back-button,
+.add-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    min-width: 70px; /* Minimum width for buttons */
+}
+
+form {
+    display: flex;
+    flex-direction: column; /* Stack labels and inputs vertically */
+}
+
+label {
+    margin-bottom: 15px; /* Space between labels */
+}
+
+input, 
+textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 5px; /* Space between label and input */
+    width: 100%; /* Full width for input fields */
+}
+
+.add-task-submit-button {
+    background-color: #28a745; /* Green color for submit button */
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px; /* Space above submit button */
+    width: 100%; /* Full width for the submit button */
+}
+.error-message {
+    color: red; /* Change color to red for error messages */
+    margin-top: 10px; /* Space above the error message */
+}

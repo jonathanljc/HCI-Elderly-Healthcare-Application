@@ -1,67 +1,90 @@
 import React, { useState } from 'react';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import TaskList from './tasks/TaskList';
-import TaskForm from './tasks/TaskForm';
 import TaskDetail from './tasks/TaskDetail';
+import AddTask from './tasks/AddTask';
+import EditTask from './tasks/EditTask';
 import './tasks/TaskList.css';
- 
-import './App.css'; // Keep the existing styling if needed
+import './App.css';
 
 const App = () => {
   const [tasks, setTasks] = useState([]);
   const [currentTask, setCurrentTask] = useState(null);
-  const [view, setView] = useState('list'); // 'list', 'add', 'view', 'edit'
+  const navigate = useNavigate();
 
-  const addTask = () => setView('add');
+  // Function to navigate to Add Task page
+  const addTask = () => navigate('/add-task');
+
+  // Function to navigate to Edit Task page with a specific task
   const editTask = (task) => {
     setCurrentTask(task);
-    setView('edit');
+    navigate('/edit-task', { state: { task } }); // Pass task info to EditTask
   };
+
+  // Function to view Task Details
   const viewTask = (task) => {
     setCurrentTask(task);
-    setView('view');
+    navigate('/task-detail');
   };
+
+  // Function to save a new or edited task
   const saveTask = (task) => {
-    if (currentTask) {
-      setTasks(tasks.map(t => t.id === currentTask.id ? task : t));
+    if (task.id) {
+      // Update existing task
+      setTasks(tasks.map(t => (t.id === task.id ? task : t)));
     } else {
+      // Add new task
       task.id = new Date().getTime();
       setTasks([...tasks, task]);
     }
-    setView('list');
+    navigate('/'); // Navigate back to task list after saving
   };
+
+  // Function to delete a task
   const deleteTask = (taskId) => {
     setTasks(tasks.filter(task => task.id !== taskId));
-    setView('list');
+    navigate('/'); // Navigate back to task list after deletion
   };
 
   return (
     <div className="app-container">
-      {view === 'list' && (
-        <TaskList
-        tasks={tasks}
-        onAddTask={addTask}
-        onEditTask={editTask} // Directly pass the editTask function
-        onViewTask={viewTask}
-      />
-      )}
-      {view === 'add' && (
-        <TaskForm onSave={saveTask} onCancel={() => setView('list')} />
-      )}
-      {view === 'view' && currentTask && (
-        <TaskDetail
-          task={currentTask}
-          onDelete={deleteTask}
-          onEdit={() => editTask(currentTask)}
-          onBack={() => setView('list')}
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <TaskList
+              tasks={tasks}
+              onAddTask={addTask}
+              onEditTask={editTask}
+              onViewTask={viewTask}
+            />
+          }
         />
-      )}
-      {view === 'edit' && currentTask && (
-        <TaskForm
-          task={currentTask}
-          onSave={saveTask}
-          onCancel={() => setView('list')}
+        <Route
+          path="/add-task"
+          element={<AddTask onSave={saveTask} />}
         />
-      )}
+        <Route
+          path="/task-detail"
+          element={
+            <TaskDetail
+              task={currentTask}
+              onDelete={deleteTask}
+              onEdit={() => editTask(currentTask)}
+              onBack={() => navigate('/')}
+            />
+          }
+        />
+        <Route
+          path="/edit-task"
+          element={
+            <EditTask
+              tasks={tasks}
+              onSave={saveTask}
+            />
+          }
+        />
+      </Routes>
     </div>
   );
 };
