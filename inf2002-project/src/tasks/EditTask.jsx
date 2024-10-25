@@ -35,9 +35,10 @@ const EditTask = ({ tasks, onSave }) => {
                 <div className="task-description">{task.description}</div>
               </div>
             </div>
+            {/* Change from "Edit" to View the Task */}
             <button 
               className="edit-button"
-              onClick={() => navigate('/edit-task', { state: { task } })}
+              onClick={() => navigate('/view-task', { state: { task } })} // Navigate to ViewTask page
             >
               Edit
             </button>

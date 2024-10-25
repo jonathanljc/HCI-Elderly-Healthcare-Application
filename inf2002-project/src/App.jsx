@@ -4,6 +4,7 @@ import TaskList from './tasks/TaskList';
 import TaskDetail from './tasks/TaskDetail';
 import AddTask from './tasks/AddTask';
 import EditTask from './tasks/EditTask';
+import ViewTask from './tasks/ViewTask'; // Import the new ViewTask component
 import './tasks/TaskList.css';
 import './App.css';
 
@@ -12,38 +13,32 @@ const App = () => {
   const [currentTask, setCurrentTask] = useState(null);
   const navigate = useNavigate();
 
-  // Function to navigate to Add Task page
-  const addTask = () => navigate('/add-task');
+  const addTask = () => {
+    navigate('/add-task');
+  };
 
-  // Function to navigate to Edit Task page with a specific task
   const editTask = (task) => {
     setCurrentTask(task);
-    navigate('/edit-task', { state: { task } }); // Pass task info to EditTask
+    navigate('/view-task', { state: { task } }); // Navigate to ViewTask for editing
   };
 
-  // Function to view Task Details
-  const viewTask = (task) => {
-    setCurrentTask(task);
-    navigate('/task-detail');
-  };
-
-  // Function to save a new or edited task
   const saveTask = (task) => {
+    // Check if the task has an `id`
     if (task.id) {
       // Update existing task
-      setTasks(tasks.map(t => (t.id === task.id ? task : t)));
+      setTasks(tasks.map(t => t.id === task.id ? { ...t, ...task } : t));
     } else {
-      // Add new task
+      // Add a new task if it's a new entry
       task.id = new Date().getTime();
       setTasks([...tasks, task]);
     }
-    navigate('/'); // Navigate back to task list after saving
+    setCurrentTask(null); // Reset current task
+    navigate('/'); // Navigate back to task list
   };
 
-  // Function to delete a task
   const deleteTask = (taskId) => {
     setTasks(tasks.filter(task => task.id !== taskId));
-    navigate('/'); // Navigate back to task list after deletion
+    navigate('/'); // Navigate back to task list
   };
 
   return (
@@ -56,7 +51,6 @@ const App = () => {
               tasks={tasks}
               onAddTask={addTask}
               onEditTask={editTask}
-              onViewTask={viewTask}
             />
           }
         />
@@ -78,9 +72,18 @@ const App = () => {
         <Route
           path="/edit-task"
           element={
-            <EditTask
+            <EditTask 
               tasks={tasks}
               onSave={saveTask}
+            />
+          }
+        />
+        <Route
+          path="/view-task"
+          element={
+            <ViewTask 
+              onSave={saveTask} 
+              onDelete={deleteTask}
             />
           }
         />
