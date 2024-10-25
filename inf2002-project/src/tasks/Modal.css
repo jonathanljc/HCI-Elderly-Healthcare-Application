@@ -1,0 +1,47 @@
+/* Modal.css */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure the modal is above other content */
+  }
+  
+  .modal-content {
+    background-color: white;
+    padding: 10px; /* Reduced padding for a smaller appearance */
+    border-radius: 8px;
+    width: 70%; /* Reduced width for a more compact size */
+    max-width: 240px; /* Set maximum width smaller than before */
+    text-align: center;
+    position: relative; /* For positioning the close button */
+  }
+  
+  .modal-close {
+    position: absolute; /* Positioning the close button */
+    top: 5px; /* Distance from the top */
+    right: 5px; /* Distance from the right */
+    background: none; /* Remove default button styling */
+    border: none;
+    font-size: 14px; /* Smaller font size for the X */
+    cursor: pointer;
+    color: red; /* Color to match your theme */
+  }
+  
+  
+  .modal-close-button {
+    margin-top: 10px;
+    padding: 8px 12px; /* Smaller button size */
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  

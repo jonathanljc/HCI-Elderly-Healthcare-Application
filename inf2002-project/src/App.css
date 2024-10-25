@@ -40,3 +40,17 @@
 .read-the-docs {
   color: #888;
 }
+/* Container to simulate a phone screen size (slightly smaller) */
+.app-container {
+  width: 320px;  /* Adjusted to a slightly smaller width */
+  height: 568px; /* Adjusted to a slightly smaller height */
+  margin: 20px auto;
+  padding: 15px;  /* Adjust padding if needed */
+  background-color: #f9f9f9;
+  border-radius: 15px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
