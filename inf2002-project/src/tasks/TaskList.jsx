@@ -1,10 +1,23 @@
-// TaskList.jsx
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './TaskList.css';
+import Modal from './Modal'; // Import the modal component
 
-const TaskList = ({ tasks, onAddTask, onEditTask }) => {
+const TaskList = ({ tasks, onAddTask }) => {
   const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedTask, setSelectedTask] = useState(null);
+
+  const handleViewClick = (task) => {
+    setSelectedTask(task);
+    setIsModalOpen(true);
+  };
+
+  
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedTask(null);
+  };
 
   return (
     <div className="task-list">
@@ -30,13 +43,20 @@ const TaskList = ({ tasks, onAddTask, onEditTask }) => {
             </div>
             <button 
               className="view-button" 
-              onClick={() => navigate('/task-detail', { state: { task } })}>
+              onClick={() => handleViewClick(task)}>  {/* Open modal with task info */}
               View
             </button>
           </li>
         )) : <li>No tasks available.</li>}
       </ul>
       <button className="add-task-button" onClick={onAddTask}>Add Task</button>
+
+      {/* Modal component */}
+      <Modal 
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        task={selectedTask}
+      />
     </div>
   );
 };
