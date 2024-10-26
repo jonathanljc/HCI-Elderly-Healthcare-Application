@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import TaskList from './tasks/TaskList';
-import TaskDetail from './tasks/TaskDetail';
 import AddTask from './tasks/AddTask';
 import EditTask from './tasks/EditTask';
 import ViewTask from './tasks/ViewTask'; // Import the new ViewTask component
@@ -57,17 +56,6 @@ const App = () => {
         <Route
           path="/add-task"
           element={<AddTask onSave={saveTask} />}
-        />
-        <Route
-          path="/task-detail"
-          element={
-            <TaskDetail
-              task={currentTask}
-              onDelete={deleteTask}
-              onEdit={() => editTask(currentTask)}
-              onBack={() => navigate('/')}
-            />
-          }
         />
         <Route
           path="/edit-task"
