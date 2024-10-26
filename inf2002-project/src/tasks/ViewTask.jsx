@@ -1,7 +1,7 @@
-// ViewTask.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import './TaskList.css';
+import './ViewTask.css'; // Use the updated CSS file
+import '@fortawesome/fontawesome-free/css/all.min.css'; // Import FontAwesome CSS
 
 const ViewTask = ({ onSave, onDelete }) => {
   const location = useLocation();
@@ -37,13 +37,16 @@ const ViewTask = ({ onSave, onDelete }) => {
   };
 
   return (
-    <div className="task-list">
-      <header className="task-list-header">
-        <button className="back-button" onClick={() => navigate('/')}>Back</button>
+    <div className="view-task">
+      <header className="view-task-header">
+        <button className="back-button" onClick={() => navigate('/')}>
+          <i className="fas fa-arrow-left"></i> Back
+        </button>
         <h2>View Task</h2>
       </header>
       <form>
         <label>
+          Title
           <input
             type="text"
             value={title}
@@ -53,6 +56,7 @@ const ViewTask = ({ onSave, onDelete }) => {
           />
         </label>
         <label>
+          Description
           <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
@@ -61,8 +65,12 @@ const ViewTask = ({ onSave, onDelete }) => {
           />
         </label>
       </form>
-      <button className="save-button" onClick={handleSave}>Save Changes</button>
-      <button className="delete-button" onClick={handleDelete}>Delete</button>
+      <button className="save-button" onClick={handleSave}>
+        <i className="fas fa-save"></i> Save Changes
+      </button>
+      <button className="delete-button" onClick={handleDelete}>
+        <i className="fas fa-trash-alt"></i> Delete
+      </button>
     </div>
   );
 };

@@ -1,17 +1,16 @@
-// EditTask.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import './TaskList.css';
+import './EditTask.css'; // Use the unique EditTask.css
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const EditTask = ({ tasks, onSave }) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { task } = location.state || {}; // Access the task from the state
+  const { task } = location.state || {};
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
-  // Initialize fields if task is provided
   useEffect(() => {
     if (task) {
       setTitle(task.title);
@@ -20,32 +19,47 @@ const EditTask = ({ tasks, onSave }) => {
   }, [task]);
 
   return (
-    <div className="task-list">
-      <header className="task-list-header">
-        <button className="back-button" onClick={() => navigate('/')}>Back</button>
-        <h2>Edit Tasks</h2>
+    <div className="edit-task-container">
+      <header className="edit-task-header">
+        <button 
+          className="edit-task-back-button" 
+          onClick={() => navigate('/')}
+        >
+          <i className="fas fa-arrow-left"></i> Back
+        </button>
+        <div className="edit-task-title">Edit Tasks</div>
       </header>
-      <ul className="task-items">
-        {tasks.length > 0 ? tasks.map((task, index) => (
-          <li key={index} className="task-item">
-            <div className="task-checkbox-title">
-              <input type="checkbox" className="task-checkbox" readOnly />
-              <div>
-                <div className="task-title">{task.title}</div>
-                <div className="task-description">{task.description}</div>
+
+      {/* Render the list of tasks */}
+      <ul className="edit-task-items">
+        {tasks.length > 0 ? (
+          tasks.map((task, index) => (
+            <li key={index} className="edit-task-item">
+              <div className="edit-task-content">
+                <div>
+                  <div className="edit-task-item-title">{task.title}</div>
+                </div>
               </div>
-            </div>
-            {/* Change from "Edit" to View the Task */}
-            <button 
-              className="edit-button"
-              onClick={() => navigate('/view-task', { state: { task } })} // Navigate to ViewTask page
-            >
-              Edit
-            </button>
-          </li>
-        )) : <li>No tasks available.</li>}
+              <button
+                className="edit-task-edit-button"
+                onClick={() => navigate('/view-task', { state: { task } })}
+              >
+                <i className="fas fa-edit"></i> Edit
+              </button>
+            </li>
+          ))
+        ) : (
+          <li className="empty-task-message">No tasks available.</li>
+        )}
       </ul>
-      <button className="add-task-button" onClick={() => navigate('/add-task')}>Add Task</button>
+
+      {/* Add Task Button */}
+      <button 
+        className="edit-task-add-button" 
+        onClick={() => navigate('/add-task')}
+      >
+        <i className="fas fa-plus"></i> Add Task
+      </button>
     </div>
   );
 };

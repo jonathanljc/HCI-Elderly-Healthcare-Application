@@ -3,18 +3,36 @@
     display: flex;
     flex-direction: column;
     height: 100%; /* Full height of the container */
+    justify-content: flex-start; /* Align content to the top */
+    align-items: center;
     padding: 20px; /* Padding to add spacing */
-}
-
-.add-task-header {
+    box-sizing: border-box; /* Include padding in the height calculation */
+  }
+  
+  /* Header Styles */
+  .add-task-header {
+    width: 100%;
     display: flex;
     justify-content: space-between; /* Space between buttons and title */
     align-items: center;
-    margin-bottom: 20px; /* Space below header */
-}
-
-.back-button,
-.add-button {
+    margin-bottom: 15px; /* Consistent spacing below the header */
+    padding: 0 10px; /* Adjust padding if needed */
+  }
+  
+  /* Title - Centered */
+  .add-task-header h2 {
+    flex: 1; /* Use flex-grow for dynamic space adjustment */
+    text-align: center;
+    margin: 10px 0 0 0; /* Adjust the margin to move the title down */
+    padding-top: 5px; /* Optional padding to provide more space above */
+    font-size: 22px;
+    font-weight: bold;
+    padding-right: 14px;
+  }
+  
+  /* Button Styles - Back and Add Button */
+  .back-button,
+  .add-button {
     background-color: #007bff;
     color: white;
     border: none;
@@ -22,38 +40,52 @@
     border-radius: 8px;
     cursor: pointer;
     font-size: 16px;
-    min-width: 70px; /* Minimum width for buttons */
-}
-
-form {
+    min-width: 70px;
+    flex-shrink: 0; /* Prevent buttons from shrinking */
+  }
+  
+  /* Form Styling */
+  form {
     display: flex;
     flex-direction: column; /* Stack labels and inputs vertically */
-}
-
-label {
-    margin-bottom: 15px; /* Space between labels */
-}
-
-input, 
-textarea {
+    width: 100%;
+    max-width: 400px; /* Limit the width of the form for consistency */
+  }
+  
+  label {
+    margin-bottom: 15px; /* Consistent space between labels */
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  input,
+  textarea {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-top: 5px; /* Space between label and input */
     width: 100%; /* Full width for input fields */
-}
-
-.add-task-submit-button {
+    box-sizing: border-box; /* Include padding in width calculation */
+  }
+  
+  /* Submit Button Styling */
+  .add-task-submit-button {
     background-color: #28a745; /* Green color for submit button */
     color: white;
-    padding: 10px;
+    padding: 12px 0;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 10px; /* Space above submit button */
+    margin-top: 20px; /* Consistent spacing above submit button */
     width: 100%; /* Full width for the submit button */
-}
-.error-message {
+    max-width: 400px; /* Limit the width for consistency */
+    font-size: 15px;
+  }
+  
+  /* Error Message Styling */
+  .error-message {
     color: red; /* Change color to red for error messages */
     margin-top: 10px; /* Space above the error message */
-}
+    text-align: center; /* Center align error messages */
+  }
+  

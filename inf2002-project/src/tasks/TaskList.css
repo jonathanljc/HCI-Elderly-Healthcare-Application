@@ -1,116 +1,141 @@
 /* Task List Container */
-.task-list {
-    display: flex;
-    flex-direction: column;
-    height: 100%; /* Full height of container */
-    justify-content: space-between; /* Space between tasks and the button */
-    padding-bottom: 20px; /* Padding to add spacing at the bottom */
-  }
-  
-  /* Task Items List Styles */
-.task-items {
-    width: 100%;
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    align-items: center; /* Center items horizontally */
-  }
-  
-  /* Individual Task Item Styles */
-  .task-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #e0e0e0;
-    padding: 8px 10px;
-    border-radius: 6px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    border: 1px solid #ccc;
-    width: 90%; /* Adjust the width to be consistent */
-    max-width: 280px; /* Ensure a max width to keep it compact */
-  }
-  
-  /* Add Task Button */
-  .add-task-button {
-    width: 90%;
-    padding: 12px 0;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 15px;
-    margin-top: 10px; /* Slight margin above the button */
-    align-self: center;
-    position: relative; /* Keep relative positioning */
-  }
-  
-  /* Header Styles */
-  .task-list-header {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    padding: 0 5px;
-  }
-  
-  .task-list-header h2 {
-    flex-grow: 1;
-    text-align: center;
-    margin: 0;
-    font-size: 22px;
-    padding: 0 10px;
-  }
-  
-  /* Back and Edit Button Styles */
-  .back-button,
-  .edit-button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-    min-width: 70px;
-    flex-shrink: 0;
-  }
-  
-  /* Task Content Styling */
-  .task-checkbox-title {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 8px;
-  }
-  
-  .task-checkbox {
-    margin: 0;
-  }
-  
-  .task-title {
-    font-size: 14px;
-    font-weight: bold;
-  }
-  
-  .task-description {
-    font-size: 12px;
-    color: #555;
-  }
-  
-  /* View Button Styles */
-  .view-button {
-    background-color: #28a745;
-    color: white;
-    border: none;
-    padding: 6px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 12px;
-    align-self: center;
-  }
-  
+.task-list-container {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: flex-start;
+  padding-bottom: 20px;
+  align-items: center;
+}
+
+/* Task List Header Styles */
+.task-list-header {
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px; /* Reduce the margin */
+  padding: 0 15px;
+}
+
+/* Back Button Styled Specifically for Task List */
+.task-list-back-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  min-width: 70px;
+  text-align: center;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 6px; /* Space between icon and text */
+}
+
+/* Centered Title for Task List */
+.task-list-title {
+  font-size: 22px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 20px;
+  flex-grow: 1;
+}
+
+/* Add Task Button - Specifically for Task List */
+.task-list-add-button {
+  width: 170%;
+  max-width: 250px;
+  padding: 12px 0;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 15px;
+  margin: 15px 0 10px 0; /* Adjust margins for vertical spacing */
+  align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Individual Task Item Styles for Task List */
+.task-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #e0e0e0;
+  padding: 6px 10px;
+  border-radius: 6px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccc;
+  width: 145%;
+  max-width: 250px;
+  margin: 10px 0;
+  height: 35px;
+  align-self: center;
+  position: relative;
+  left: -70px;
+}
+
+/* Task Title inside the Task Item */
+.task-list-item .task-list-item-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+  flex-grow: 1;
+  text-align: left;
+  padding-left: 10px;
+}
+
+/* View Button for Task List Component */
+.task-list-view-button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  min-width: 60px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+/* Edit Button with Consistent Style */
+.task-list-edit-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  min-width: 80px;
+  text-align: center;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 6px; /* Space between icon and text */
+}
+
+
+/* Empty Task Message Styles - Positioned Centrally */
+.task-list-empty-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  color: #555;
+  margin: 10px 0 10px 0; /* Adjust margin for better spacing */
+  height: 50px; /* Add height to control spacing visually */
+}
