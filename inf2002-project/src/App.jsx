@@ -5,6 +5,7 @@ import TaskList from './tasks/TaskList';
 import AddTask from './tasks/AddTask';
 import EditTask from './tasks/EditTask';
 import ViewTask from './tasks/ViewTask';
+import Homepage from './Homepage/Homepage';
 
 import Login from './Auth/Login'; // Import the Homepage component
 import './tasks/TaskList.css';
@@ -42,9 +43,10 @@ const App = () => {
 
   return (
     <div className="app-container">
-      
+
       <Routes>
         <Route path="/" element={<Login />} />
+        <Route path="/homepage" element={<Homepage />} />
         <Route
           path="/tasks"
           element={

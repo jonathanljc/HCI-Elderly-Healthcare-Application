@@ -2,7 +2,13 @@
 import React from 'react';
 import './Login.css';
 import logo from "../assets/logo.png"
+import { useNavigate } from 'react-router';
 const Login = () => {
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    navigate("/homepage")
+  }
   return (
     <div className="homepage">
       <header className="homepage-header">
@@ -20,7 +26,7 @@ const Login = () => {
             <input type="password" placeholder="Enter your password" />
           </label>
           <div className="button-group">
-            <button className="login-button">Login</button>
+            <button className="login-button" onClick={handleLogin}>Login</button>
             <button className="forgot-password-button">Forgot Password?</button>
             <button className="signup-button">Sign Up</button>
           </div>
