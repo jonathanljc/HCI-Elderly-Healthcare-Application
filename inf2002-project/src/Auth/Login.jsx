@@ -9,6 +9,10 @@ const Login = () => {
   const handleLogin = () => {
     navigate("/homepage")
   }
+
+  const handleSignup = () => {
+    navigate("/signup")
+  }
   return (
     <div className="homepage">
       <header className="homepage-header">
@@ -28,7 +32,7 @@ const Login = () => {
           <div className="button-group">
             <button className="login-button" onClick={handleLogin}>Login</button>
             <button className="forgot-password-button">Forgot Password?</button>
-            <button className="signup-button">Sign Up</button>
+            <button className="signup-button" onClick={handleSignup}>Sign Up</button>
           </div>
         </div>
       </main>

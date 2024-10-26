@@ -6,6 +6,7 @@ import AddTask from './tasks/AddTask';
 import EditTask from './tasks/EditTask';
 import ViewTask from './tasks/ViewTask';
 import Homepage from './Homepage/Homepage';
+import Signup from './Auth/Signup';
 
 import Login from './Auth/Login'; // Import the Homepage component
 import './tasks/TaskList.css';
@@ -46,6 +47,7 @@ const App = () => {
 
       <Routes>
         <Route path="/" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/homepage" element={<Homepage />} />
         <Route
           path="/tasks"
