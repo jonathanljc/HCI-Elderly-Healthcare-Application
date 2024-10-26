@@ -1,0 +1,17 @@
+.navbar {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+    color:black
+  }
+  
+  .navbar a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+  }
+  
+  .navbar a:hover {
+    text-decoration: underline;
+  }

@@ -1,9 +1,12 @@
+// src/App.jsx
 import React, { useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import TaskList from './tasks/TaskList';
 import AddTask from './tasks/AddTask';
 import EditTask from './tasks/EditTask';
-import ViewTask from './tasks/ViewTask'; // Import the new ViewTask component
+import ViewTask from './tasks/ViewTask';
+
+import Login from './Auth/Login'; // Import the Homepage component
 import './tasks/TaskList.css';
 import './App.css';
 
@@ -18,33 +21,32 @@ const App = () => {
 
   const editTask = (task) => {
     setCurrentTask(task);
-    navigate('/view-task', { state: { task } }); // Navigate to ViewTask for editing
+    navigate('/view-task', { state: { task } });
   };
 
   const saveTask = (task) => {
-    // Check if the task has an `id`
     if (task.id) {
-      // Update existing task
       setTasks(tasks.map(t => t.id === task.id ? { ...t, ...task } : t));
     } else {
-      // Add a new task if it's a new entry
       task.id = new Date().getTime();
       setTasks([...tasks, task]);
     }
-    setCurrentTask(null); // Reset current task
-    navigate('/'); // Navigate back to task list
+    setCurrentTask(null);
+    navigate('/');
   };
 
   const deleteTask = (taskId) => {
     setTasks(tasks.filter(task => task.id !== taskId));
-    navigate('/'); // Navigate back to task list
+    navigate('/');
   };
 
   return (
     <div className="app-container">
+      
       <Routes>
+        <Route path="/" element={<Login />} />
         <Route
-          path="/"
+          path="/tasks"
           element={
             <TaskList
               tasks={tasks}

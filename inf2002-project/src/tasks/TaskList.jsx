@@ -3,6 +3,7 @@
   import './TaskList.css'; // Use TaskList-specific styles
   import '@fortawesome/fontawesome-free/css/all.min.css';
   import Modal from './Modal'; // Import the modal component
+  import Navbar from '../navbar/Navbar';
 
   const TaskList = ({ tasks, onAddTask }) => {
     const navigate = useNavigate();
@@ -21,6 +22,7 @@
 
     return (
       <div className="task-list-container">
+        <Navbar/>
         <header className="task-list-header">
           <button className="task-list-back-button" onClick={() => navigate('/')}>
             <i className="fas fa-arrow-left"></i> Back
