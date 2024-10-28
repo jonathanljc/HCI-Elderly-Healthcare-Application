@@ -1,0 +1,112 @@
+.event-management-page {
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 18px; 
+}
+
+.create-event h2, .events h2, .calendar-instructions h2, .calendar-legend h2 {
+    font-size: 16px; 
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.create-event {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.create-event input {
+    margin: 10px 0;
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.create-event button {
+    padding: 10px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.create-event button:hover {
+    background-color: #45a049;
+}
+
+.events {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    max-height: 200px; 
+    overflow-y: auto; 
+}
+
+.events ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.events li {
+    background-color: #e0f7fa;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.events button {
+    margin-left: 5px;
+    padding: 10px;
+    background-color: #2196f3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.events button:hover {
+    background-color: #1976d2;
+}
+
+.calendar-instructions {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.calendar-legend {
+    margin: 20px 0;
+    padding: 10px;
+    background-color: #f1f1f1; 
+    border-radius: 5px;
+}
+
+.calendar-legend ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.calendar-legend li {
+    margin: 5px 0;
+    font-size: 14px; 
+}
+
+.event-indicator {
+    margin-right: 5px;
+}
