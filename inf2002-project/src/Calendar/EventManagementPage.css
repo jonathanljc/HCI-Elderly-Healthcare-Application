@@ -1,0 +1,66 @@
+.event-management-page {
+    text-align: center;
+    padding: 20px;
+    max-width: 100%;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+    font-size: 14px;
+}
+
+.scrollable-content {
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 20px;
+    font-size: 12px;
+}
+
+.scroll-button {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+.scroll-button:hover {
+    background-color: #45a049;
+}
+
+.scroll-up {
+    top: 20px;
+}
+
+.scroll-down {
+    bottom: 20px;
+}
+
+.create-event input, .create-event button {
+    font-size: 12px;
+    padding: 8px;
+}
+
+header h1, .create-event h2, .events h2, .joined-events h2 {
+    font-size: 14px;
+}
+
+.events li, .joined-events li {
+    font-size: 12px;
+    padding: 8px;
+}
+
+.events button, .joined-events button {
+    font-size: 12px;
+    padding: 6px;
+}
+
+.events ul, .joined-events ul {
+    padding-left: 0;
+}
