@@ -1,0 +1,24 @@
+.notification {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  max-width: 400px;
+  margin: auto;
+  border-top: 1px solid #ccc;
+  padding-top: 20px;
+}
+
+.notification-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #f44336;
+  background-color: #ffdddd;
+}
+
+.notification-icon {
+  width: 20px;
+  height: 20px;
+  background-color: #f44336;
+  margin-right: 10px;
+  border-radius: 50%;
+}

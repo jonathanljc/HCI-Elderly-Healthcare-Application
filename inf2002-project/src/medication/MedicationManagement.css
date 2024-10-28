@@ -1,0 +1,77 @@
+/* Ensure the main container is flush to the top */
+.medication-management {
+  font-family: Arial, sans-serif;
+  max-width: 400px;
+  margin: 0 auto;
+  position: relative;
+  padding-top: 0;
+}
+
+/* Navbar and back button */
+.back-button {
+  display: block;
+  width: fit-content;
+  margin: 10px 0 20px 10px; /* Space from the top of the container and aligned to the left */
+  padding: 10px;
+  border: none;
+  background-color: #4caf50;
+  color: white;
+  cursor: pointer;
+}
+
+.back-button:hover {
+  background-color: #45a049;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.add-button,
+.add-medication-button {
+  padding: 10px;
+  border: none;
+  background-color: #4caf50;
+  color: white;
+  cursor: pointer;
+}
+
+.add-button:hover,
+.add-medication-button:hover {
+  background-color: #45a049;
+}
+
+.search-bar {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+}
+
+.medication-list .medication-item {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.add-medication {
+  border-top: 1px solid #ccc;
+  padding-top: 20px;
+}
+
+.form-selection button {
+  margin: 5px;
+  padding: 10px;
+  border: none;
+  background-color: #ddd;
+  cursor: pointer;
+}
+
+.form-selection button:hover {
+  background-color: #ccc;
+}
