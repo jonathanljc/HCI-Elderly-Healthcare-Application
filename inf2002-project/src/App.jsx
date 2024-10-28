@@ -1,18 +1,16 @@
-// src/App.jsx
 import React, { useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import TaskList from './tasks/TaskList';
+import './App.css';
+import Login from './Auth/Login';
+import Signup from './Auth/Signup';
+import CalendarPage from './Calendar/CalendarPage';
+import EventManagementPage from './Calendar/EventManagementPage';
+import Homepage from './Homepage/Homepage';
 import AddTask from './tasks/AddTask';
 import EditTask from './tasks/EditTask';
-import ViewTask from './tasks/ViewTask';
-import Homepage from './Homepage/Homepage';
-import Signup from './Auth/Signup';
-import MedicationManagement from './medication/MedicationManagement';
-import Notification from './medication/Notification';
-
-import Login from './Auth/Login'; // Import the Homepage component
+import TaskList from './tasks/TaskList';
 import './tasks/TaskList.css';
-import './App.css';
+import ViewTask from './tasks/ViewTask';
 
 const App = () => {
   const [tasks, setTasks] = useState([]);
@@ -30,7 +28,7 @@ const App = () => {
 
   const saveTask = (task) => {
     if (task.id) {
-      setTasks(tasks.map((t) => (t.id === task.id ? { ...t, ...task } : t)));
+      setTasks(tasks.map(t => t.id === task.id ? { ...t, ...task } : t));
     } else {
       task.id = new Date().getTime();
       setTasks([...tasks, task]);
@@ -40,7 +38,7 @@ const App = () => {
   };
 
   const deleteTask = (taskId) => {
-    setTasks(tasks.filter((task) => task.id !== taskId));
+    setTasks(tasks.filter(task => task.id !== taskId));
     navigate('/');
   };
 
@@ -53,24 +51,37 @@ const App = () => {
         <Route
           path="/tasks"
           element={
-            <TaskList tasks={tasks} onAddTask={addTask} onEditTask={editTask} />
+            <TaskList
+              tasks={tasks}
+              onAddTask={addTask}
+              onEditTask={editTask}
+            />
           }
         />
-        <Route path="/add-task" element={<AddTask onSave={saveTask} />} />
+        <Route
+          path="/add-task"
+          element={<AddTask onSave={saveTask} />}
+        />
         <Route
           path="/edit-task"
-          element={<EditTask tasks={tasks} onSave={saveTask} />}
+          element={
+            <EditTask 
+              tasks={tasks}
+              onSave={saveTask}
+            />
+          }
         />
         <Route
           path="/view-task"
-          element={<ViewTask onSave={saveTask} onDelete={deleteTask} />}
+          element={
+            <ViewTask 
+              onSave={saveTask} 
+              onDelete={deleteTask}
+            />
+          }
         />
-        <Route path="/" element={<h1>Welcome to Elderhealth</h1>} />
-        <Route
-          path="/medication-management"
-          element={<MedicationManagement />}
-        />
-        <Route path="/notification" element={<Notification />} />
+        <Route path="/calendar" element={<CalendarPage />} />
+        <Route path="/events" element={<EventManagementPage />} />
       </Routes>
     </div>
   );
