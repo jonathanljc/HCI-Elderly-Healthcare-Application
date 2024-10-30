@@ -11,6 +11,7 @@ import EditTask from './tasks/EditTask';
 import TaskList from './tasks/TaskList';
 import './tasks/TaskList.css';
 import ViewTask from './tasks/ViewTask';
+import ForgotPassword from './Auth/ForgotPassword';
 
 const App = () => {
   const [tasks, setTasks] = useState([]);
@@ -47,6 +48,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/forgot-password" element={<ForgotPassword/>}/>
         <Route path="/homepage" element={<Homepage />} />
         <Route
           path="/tasks"
