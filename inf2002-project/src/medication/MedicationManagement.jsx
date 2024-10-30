@@ -2,8 +2,10 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import './MedicationManagement.css';
 import Navbar from '../navbar/Navbar';
+import { useNavigate } from 'react-router';
 
 const MedicationManagement = () => {
+  const navigate = useNavigate();
   const [medications, setMedications] = useState([]);
   const [showAddMedicine, setShowAddMedicine] = useState(false);
 
@@ -12,7 +14,11 @@ const MedicationManagement = () => {
   };
 
   const handleBack = () => {
-    setShowAddMedicine(false);
+    if (showAddMedicine) {
+      setShowAddMedicine(false); // Go back to the medication list
+    } else {
+      navigate('/homepage'); // Navigate to the homepage
+    }
   };
 
   return (
@@ -21,7 +27,7 @@ const MedicationManagement = () => {
 
       {/* Back button - appears in both views */}
       <button className="back-button" onClick={handleBack}>
-        BACK
+      <i className="fas fa-arrow-left"></i> Back
       </button>
 
       {!showAddMedicine ? (

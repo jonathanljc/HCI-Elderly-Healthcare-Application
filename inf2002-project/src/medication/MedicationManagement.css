@@ -14,13 +14,13 @@
   margin: 10px 0 20px 10px; /* Space from the top of the container and aligned to the left */
   padding: 10px;
   border: none;
-  background-color: #4caf50;
+  background-color: #007bff;
   color: white;
   cursor: pointer;
 }
 
 .back-button:hover {
-  background-color: #45a049;
+  background-color: #007bff;
 }
 
 .header {
@@ -34,14 +34,14 @@
 .add-medication-button {
   padding: 10px;
   border: none;
-  background-color: #4caf50;
+  background-color: #007bff;
   color: white;
   cursor: pointer;
 }
 
 .add-button:hover,
 .add-medication-button:hover {
-  background-color: #45a049;
+  background-color: #007bff;
 }
 
 .search-bar {
