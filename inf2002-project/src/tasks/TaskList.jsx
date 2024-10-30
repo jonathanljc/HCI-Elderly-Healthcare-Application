@@ -24,7 +24,7 @@
       <div className="task-list-container">
         <Navbar/>
         <header className="task-list-header">
-          <button className="task-list-back-button" onClick={() => navigate('/')}>
+          <button className="task-list-back-button" onClick={() => navigate('/homepage')}>
             <i className="fas fa-arrow-left"></i> Back
           </button>
           <h2 className="task-list-title">Tasks</h2>
