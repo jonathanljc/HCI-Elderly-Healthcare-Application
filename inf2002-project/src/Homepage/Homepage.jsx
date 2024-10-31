@@ -25,7 +25,7 @@ const Homepage = () => {
   return (
     <div className="homepage">
       <Navbar/>
-      <header className="header">
+      <header className="homepage-header">
         <h1>Welcome to Elderhealth</h1>
         <p>Your daily health dashboard</p>
       </header>
@@ -45,7 +45,7 @@ const Homepage = () => {
                 <div className="medication-info">
                   <h3>{med.name} - {med.dosage}</h3>
                   <div className="time-info">
-                  <i className="fa-solid fa-clock-rotate-left"><span>{med.time}</span></i>
+                  <i className="fa-solid fa-clock-rotate-left"><span>&nbsp;&nbsp;{med.time}</span></i>
                   </div>
                   <p className="instructions">{med.instructions}</p>
                 </div>
