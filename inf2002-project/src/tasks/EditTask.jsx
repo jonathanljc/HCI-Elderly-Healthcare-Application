@@ -23,7 +23,7 @@ const EditTask = ({ tasks, onSave }) => {
       <header className="edit-task-header">
         <button 
           className="edit-task-back-button" 
-          onClick={() => navigate('/')}
+          onClick={() => navigate('/tasks')}
         >
           <i className="fas fa-arrow-left"></i> Back
         </button>

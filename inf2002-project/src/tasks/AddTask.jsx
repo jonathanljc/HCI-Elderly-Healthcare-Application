@@ -1,8 +1,10 @@
 // AddTask.jsx
 import React, { useState } from 'react';
 import './AddTask.css'; // Import the CSS for styling
+import { useNavigate } from 'react-router';
 
 const AddTask = ({ onSave }) => {
+  const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [error, setError] = useState(''); // State to manage error messages
@@ -21,6 +23,7 @@ const AddTask = ({ onSave }) => {
     setTitle('');
     setDescription('');
     setError(''); // Clear error message
+    navigate('/tasks'); // Redirect to the tasks page
   };
 
   return (

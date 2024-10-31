@@ -24,18 +24,12 @@ const MedicationManagement = () => {
   return (
     <div className="medication-management">
       <Navbar />
-
-      {/* Back button - appears in both views */}
-      <button className="back-button" onClick={handleBack}>
-      <i className="fas fa-arrow-left"></i> Back
-      </button>
-
       {!showAddMedicine ? (
         <div className="medication-list-view">
           <div className="header">
             <h1>Medication</h1>
             <button className="add-button" onClick={handleAddMedication}>
-              +
+              Add
             </button>
           </div>
 

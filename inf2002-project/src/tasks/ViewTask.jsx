@@ -26,14 +26,14 @@ const ViewTask = ({ onSave, onDelete }) => {
 
     // Overwrite the existing task data
     onSave({ ...task, title, description }); // Use the existing task's `id` to update
-    navigate('/'); // Navigate back to task list after saving
+    navigate('/tasks'); // Navigate back to task list after saving
   };
 
   const handleDelete = () => {
     if (onDelete) {
       onDelete(task.id);
     }
-    navigate('/'); // Navigate back to task list after deletion
+    navigate('/tasks'); // Navigate back to task list after deletion
   };
 
   return (
