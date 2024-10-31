@@ -25,11 +25,11 @@ const Login = () => {
       <main className="homepage-content">
         <div className="login-form">
           <label>
-            Username:
+            Username:&nbsp;
             <input type="text" placeholder="Enter your username" />
           </label>
           <label>
-            Password:
+            Password:&nbsp;
             <input type="password" placeholder="Enter your password" />
           </label>
           <div className="button-group">
