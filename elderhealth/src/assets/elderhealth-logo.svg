@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Outer circle representing care and protection -->
+  <circle cx="100" cy="100" r="90" fill="none" stroke="#4A90E2" stroke-width="8"/>
+  
+  <!-- Heart shape symbolizing health and care -->
+  <path d="M100 140 C60 100 40 82 40 65 C40 45 55 35 75 35 C85 35 95 40 100 50 C105 40 115 35 125 35 C145 35 160 45 160 65 C160 82 140 100 100 140Z" 
+        fill="#4A90E2"/>
+  
+  <!-- Tree of life symbol representing growth and wellness -->
+  <path d="M95 140 L105 140 L105 165 L95 165 Z" fill="#4A90E2"/>
+  
+  <!-- Leaf patterns symbolizing vitality -->
+  <path d="M70 80 Q100 60 130 80" fill="none" stroke="#4A90E2" stroke-width="4" stroke-linecap="round"/>
+  <path d="M70 95 Q100 75 130 95" fill="none" stroke="#4A90E2" stroke-width="4" stroke-linecap="round"/>
+  <path d="M70 110 Q100 90 130 110" fill="none" stroke="#4A90E2" stroke-width="4" stroke-linecap="round"/>
+</svg>
