@@ -4,6 +4,7 @@
 
 @layer base {
   :root {
+    /* Core colors */
     --background: 35 100% 98%;
     --foreground: 222.2 84% 4.9%;
 
@@ -32,16 +33,53 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 221 83% 53%;
 
-    --radius: 0.5rem;
+    /* Chart colors */
+    --chart-1: 221 83% 53%;
+    --chart-2: 150 84% 67%;
+    --chart-3: 349 89% 60%;
+    --chart-4: 45 93% 47%;
+    --chart-5: 280 87% 65%;
 
-    --chart-1: 221 83% 53%; /* Blue */
-    --chart-2: 150 84% 67%; /* Green */
-    --chart-3: 349 89% 60%; /* Pink */
-    --chart-4: 45 93% 47%; /* Yellow */
-    --chart-5: 280 87% 65%; /* Purple */
+    /* Background pattern properties */
+    --grid-size-small: 30px;
+    --grid-size-large: 100px;
+    --dot-size: 1.5px;
+    --dot-color: 222 84% 20%;
+    --dot-opacity: 0.1;
+
+    /* Gradient properties */
+    --gradient-start: var(--background);
+    --gradient-end: 35 90% 96%;
+    --gradient-opacity: 0.8;
+
+    /* Glow effects */
+    --glow-primary: 221 83% 53%;
+    --glow-accent: 349 89% 60%;
+    --glow-opacity: 0.15;
+
+    /* Animation properties */
+    --animation-duration: 10s;
+    --animation-timing: cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* UI properties */
+    --radius: 0.5rem;
+    --shadow-color: 221 83% 53%;
+    --shadow-strength: 0.05;
+
+    /* Status colors */
+    --success: 150 84% 67%;
+    --warning: 45 93% 47%;
+    --error: 0 84.2% 60.2%;
+    --info: 221 83% 53%;
+
+    /* Elevation levels */
+    --elevation-1: 0 2px 4px rgb(0 0 0 / 0.05);
+    --elevation-2: 0 4px 8px rgb(0 0 0 / 0.1);
+    --elevation-3: 0 8px 16px rgb(0 0 0 / 0.15);
   }
 
   .dark {
+    /* Core colors dark mode */
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
 
@@ -70,11 +108,30 @@
     --input: 217.2 32.6% 17.5%;
     --ring: 224.3 76.3% 48%;
 
-    --chart-1: 221 83% 65%; /* Lighter Blue */
-    --chart-2: 150 84% 60%; /* Lighter Green */
-    --chart-3: 349 89% 70%; /* Lighter Pink */
-    --chart-4: 45 93% 60%; /* Lighter Yellow */
-    --chart-5: 280 87% 75%; /* Lighter Purple */
+    /* Chart colors dark mode */
+    --chart-1: 221 83% 65%;
+    --chart-2: 150 84% 60%;
+    --chart-3: 349 89% 70%;
+    --chart-4: 45 93% 60%;
+    --chart-5: 280 87% 75%;
+
+    /* Background pattern properties dark mode */
+    --dot-color: 210 40% 98%;
+    --dot-opacity: 0.05;
+
+    /* Gradient properties dark mode */
+    --gradient-start: 222.2 84% 4.9%;
+    --gradient-end: 222.2 84% 3.9%;
+    --gradient-opacity: 0.9;
+
+    /* Glow effects dark mode */
+    --glow-primary: 217 91% 60%;
+    --glow-accent: 349 89% 70%;
+    --glow-opacity: 0.1;
+
+    /* Shadow properties dark mode */
+    --shadow-color: 217 91% 60%;
+    --shadow-strength: 0.1;
   }
 }
 
@@ -82,7 +139,118 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* Enhanced background styles */
+.grid-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: -1;
+
+  background: radial-gradient(
+    circle at top right,
+    hsl(var(--gradient-start) / var(--gradient-opacity)),
+    hsl(var(--gradient-end) / var(--gradient-opacity))
+  );
+
+  background-image: radial-gradient(
+      hsla(var(--dot-color) / var(--dot-opacity)) var(--dot-size),
+      transparent 1px
+    ),
+    radial-gradient(
+      hsla(var(--dot-color) / var(--dot-opacity)) var(--dot-size),
+      transparent 1px
+    );
+  background-position: 0 0,
+    calc(var(--grid-size-small) / 2) calc(var(--grid-size-small) / 2);
+  background-size: var(--grid-size-small) var(--grid-size-small);
+
+  mask-image: radial-gradient(circle at center, black, transparent 80%);
+}
+
+.background-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.background-glow::before,
+.background-glow::after {
+  content: "";
+  position: absolute;
+  inset: -50%;
+  background: radial-gradient(
+    circle at center,
+    hsla(var(--glow-primary) / var(--glow-opacity)),
+    transparent 70%
+  );
+  opacity: 0;
+  animation: pulse var(--animation-duration) var(--animation-timing) infinite
+    alternate;
+}
+
+.background-glow::after {
+  background: radial-gradient(
+    circle at center,
+    hsla(var(--glow-accent) / var(--glow-opacity)),
+    transparent 70%
+  );
+  animation-delay: calc(var(--animation-duration) / -2);
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0;
+    transform: translate(-25%, -25%) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(25%, 25%) scale(1.2);
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --animation-duration: 0.01ms;
+  }
+
+  .background-glow::before,
+  .background-glow::after {
+    animation: none;
+  }
+}
+
+/* Helper classes for layered backgrounds */
+.layered-bg {
+  position: relative;
+  isolation: isolate;
+}
+
+.layered-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: inherit;
+  z-index: -1;
+  opacity: 0.7;
+  filter: blur(50px);
+}
+@layer utilities {
+  .backdrop-blur-md {
+    backdrop-filter: blur(12px);
   }
 }

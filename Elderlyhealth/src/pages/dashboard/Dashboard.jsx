@@ -13,8 +13,6 @@ import {
   PartyPopper,
   CalendarDays,
   AlertCircle,
-  CheckCircle2,
-  XCircle,
 } from "lucide-react";
 import { Navbar } from "@/components/navigation/Navbar";
 import { Badge } from "@/components/ui/badge";
@@ -27,6 +25,35 @@ import {
   addDays,
 } from "date-fns";
 import { useNavigate } from "react-router-dom";
+import { cn } from "@/lib/utils";
+
+const StatCard = ({ title, value, description, icon: Icon, trend }) => {
+  return (
+    <Card className="relative overflow-hidden group hover:shadow-soft transition-shadow">
+      <div className="absolute top-0 right-0 w-24 h-24 transform translate-x-8 -translate-y-8">
+        <div className="absolute inset-0 bg-primary/5 rounded-full blur-2xl" />
+      </div>
+      <CardContent className="p-6">
+        <div className="flex items-start justify-between">
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <div className="p-2 bg-primary/10 rounded-lg">
+                <Icon className="h-5 w-5 text-primary" aria-hidden="true" />
+              </div>
+              <p className="text-sm font-medium text-muted-foreground">
+                {title}
+              </p>
+            </div>
+            <div className="space-y-1">
+              <p className="text-2xl font-bold tracking-tight">{value}</p>
+              <p className="text-sm text-muted-foreground">{description}</p>
+            </div>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
 
 const MedicationStatusCard = ({ medication }) => {
   const getStatusStyles = () => {
@@ -54,10 +81,12 @@ const MedicationStatusCard = ({ medication }) => {
   const styles = getStatusStyles();
 
   return (
-    <div className="flex items-center justify-between p-4 border rounded-lg bg-card hover:bg-accent/50 transition-colors">
+    <div className="group relative rounded-lg border bg-card p-4 hover:shadow-soft transition-all duration-200">
       <div className="flex items-start gap-3">
-        <div className={`h-2 w-2 rounded-full mt-2 ${styles.indicator}`} />
-        <div>
+        <div
+          className={`h-2 w-2 rounded-full mt-2 ${styles.indicator} animate-pulse-gentle`}
+        />
+        <div className="flex-1">
           <div className="flex items-center gap-2">
             <h3 className="font-medium">{medication.name}</h3>
             {styles.badge}
@@ -66,10 +95,14 @@ const MedicationStatusCard = ({ medication }) => {
             {medication.dosage} • {medication.frequency}
           </p>
         </div>
+        <div className="text-sm text-muted-foreground">
+          {format(new Date(medication.startDate), "MMM d, yyyy")}
+        </div>
       </div>
-      <div className="text-sm text-muted-foreground">
-        {format(new Date(medication.startDate), "MMM d, yyyy")}
-      </div>
+      <div
+        className="absolute inset-0 rounded-lg bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"
+        aria-hidden="true"
+      />
     </div>
   );
 };
@@ -98,36 +131,105 @@ const TaskCard = ({ task }) => {
     isPast(new Date(task.dueDate)) && task.status !== "completed";
 
   return (
-    <div className="flex items-center justify-between p-4 border rounded-lg bg-card hover:bg-accent/50 transition-colors">
-      <div className="flex items-start gap-3">
-        <div className={`h-2 w-2 rounded-full mt-2 ${styles.indicator}`} />
-        <div>
-          <div className="flex items-center gap-2">
-            <h3 className="font-medium">{task.title}</h3>
-            <Badge variant="secondary" className={styles.badge}>
-              {task.priority}
-            </Badge>
-            {task.status === "completed" && (
-              <Badge
-                variant="outline"
-                className="bg-green-50 text-green-700 border-green-200"
-              >
-                Completed
-              </Badge>
-            )}
-            {isOverdue && <Badge variant="destructive">Overdue</Badge>}
+    <div className="group relative rounded-lg border bg-card p-4 hover:shadow-soft transition-all duration-200">
+      <div className="flex items-start justify-between">
+        <div className="flex gap-3">
+          <div
+            className={`h-2 w-2 rounded-full mt-2 ${styles.indicator} animate-pulse-gentle`}
+          />
+          <div>
+            <div className="flex items-center gap-2">
+              <h3 className="font-medium">{task.title}</h3>
+              <Badge className={styles.badge}>{task.priority}</Badge>
+              {task.status === "completed" && (
+                <Badge variant="outline" className="bg-green-50 text-green-700">
+                  Completed
+                </Badge>
+              )}
+              {isOverdue && <Badge variant="destructive">Overdue</Badge>}
+            </div>
+            <p className="text-sm text-muted-foreground mt-1">
+              Due: {format(new Date(task.dueDate), "MMM d, yyyy")}
+            </p>
           </div>
-          <p className="text-sm text-muted-foreground mt-1">
-            Due: {format(new Date(task.dueDate), "MMM d, yyyy")}
-          </p>
         </div>
       </div>
-      {task.status === "completed" ? (
-        <CheckCircle2 className="h-5 w-5 text-green-500" />
-      ) : (
-        isOverdue && <XCircle className="h-5 w-5 text-red-500" />
-      )}
+      <div
+        className="absolute inset-0 rounded-lg bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"
+        aria-hidden="true"
+      />
     </div>
+  );
+};
+
+const EventCard = ({ event }) => {
+  const getEventTypeStyles = (type) => {
+    const types = {
+      medical: {
+        bg: "bg-blue-100",
+        text: "text-blue-800",
+        icon: Clock,
+      },
+      exercise: {
+        bg: "bg-green-100",
+        text: "text-green-800",
+        icon: CalendarClock,
+      },
+      medication: {
+        bg: "bg-purple-100",
+        text: "text-purple-800",
+        icon: Pill,
+      },
+      general: {
+        bg: "bg-orange-100",
+        text: "text-orange-800",
+        icon: PartyPopper,
+      },
+    };
+    return types[type] || types.general;
+  };
+
+  const styles = getEventTypeStyles(event.type);
+  const Icon = styles.icon;
+  const eventDate = new Date(event.date);
+
+  const getDateLabel = () => {
+    if (isToday(eventDate)) return "Today";
+    if (isTomorrow(eventDate)) return "Tomorrow";
+    return format(eventDate, "MMM d");
+  };
+
+  return (
+    <Card className="group hover:shadow-soft transition-all duration-200">
+      <CardContent className="p-4">
+        <div className="flex items-start justify-between">
+          <div className="flex gap-3">
+            <div className={`p-2 rounded-lg ${styles.bg} ${styles.text}`}>
+              <Icon className="h-4 w-4" aria-hidden="true" />
+            </div>
+            <div>
+              <h4 className="font-medium text-sm">{event.title}</h4>
+              <div className="flex items-center gap-2 mt-1">
+                <time className="text-xs text-muted-foreground">
+                  {getDateLabel()} at {event.time}
+                </time>
+                <Badge
+                  variant="secondary"
+                  className={`${styles.bg} ${styles.text} text-xs`}
+                >
+                  {event.type}
+                </Badge>
+              </div>
+            </div>
+          </div>
+          {event.joined && (
+            <Badge variant="outline" className="bg-green-50 text-green-700">
+              Joined
+            </Badge>
+          )}
+        </div>
+      </CardContent>
+    </Card>
   );
 };
 
@@ -175,13 +277,20 @@ const EmptyStatePlaceholder = ({ type }) => {
     actionLabel,
     features,
   } = content[type];
+
   return (
     <div className="flex flex-col items-center justify-center p-6 text-center space-y-4">
       <div className="relative">
         <div className="flex h-16 w-16 items-center justify-center rounded-full bg-muted/10">
-          <Icon className="h-8 w-8 text-muted-foreground/40" />
+          <Icon
+            className="h-8 w-8 text-muted-foreground/40"
+            aria-hidden="true"
+          />
         </div>
-        <Sparkles className="h-6 w-6 text-primary absolute -top-2 -right-2 animate-pulse" />
+        <Sparkles
+          className="h-6 w-6 text-primary absolute -top-2 -right-2 animate-pulse-gentle"
+          aria-hidden="true"
+        />
       </div>
 
       <div className="space-y-2">
@@ -197,86 +306,15 @@ const EmptyStatePlaceholder = ({ type }) => {
             key={index}
             className="flex items-center gap-2 text-sm text-muted-foreground"
           >
-            <div className={`h-2 w-2 rounded-full ${feature.color}`} />
+            <div
+              className={`h-2 w-2 rounded-full ${feature.color} animate-pulse-gentle`}
+              aria-hidden="true"
+            />
             <span>{feature.label}</span>
           </div>
         ))}
       </div>
     </div>
-  );
-};
-
-const EventCard = ({ event }) => {
-  const getEventTypeStyles = (type) => {
-    const types = {
-      medical: {
-        bg: "bg-blue-100",
-        text: "text-blue-800",
-        icon: Clock,
-      },
-      exercise: {
-        bg: "bg-green-100",
-        text: "text-green-800",
-        icon: CalendarClock,
-      },
-      medication: {
-        bg: "bg-purple-100",
-        text: "text-purple-800",
-        icon: Pill,
-      },
-      general: {
-        bg: "bg-orange-100",
-        text: "text-orange-800",
-        icon: PartyPopper,
-      },
-    };
-    return types[type] || types.general;
-  };
-
-  const styles = getEventTypeStyles(event.type);
-  const Icon = styles.icon;
-  const eventDate = new Date(event.date);
-
-  const getDateLabel = () => {
-    if (isToday(eventDate)) return "Today";
-    if (isTomorrow(eventDate)) return "Tomorrow";
-    return format(eventDate, "MMM d");
-  };
-
-  return (
-    <Card className="group hover:shadow-md transition-shadow">
-      <CardContent className="p-4">
-        <div className="flex items-start justify-between">
-          <div className="flex gap-3">
-            <div className={`p-2 rounded-lg ${styles.bg} ${styles.text}`}>
-              <Icon className="h-4 w-4" />
-            </div>
-            <div>
-              <h4 className="font-medium text-sm">{event.title}</h4>
-              <div className="flex items-center gap-2 mt-1">
-                <time className="text-xs text-muted-foreground">
-                  {getDateLabel()} at {event.time}
-                </time>
-                <Badge
-                  variant="secondary"
-                  className={`${styles.bg} ${styles.text} text-xs`}
-                >
-                  {event.type}
-                </Badge>
-              </div>
-            </div>
-          </div>
-          {event.joined && (
-            <Badge
-              variant="outline"
-              className="bg-green-50 text-green-700 border-green-200"
-            >
-              Joined
-            </Badge>
-          )}
-        </div>
-      </CardContent>
-    </Card>
   );
 };
 
@@ -362,18 +400,21 @@ export default function Dashboard() {
       value: stats.total.toString(),
       description: `${stats.joined} joined, ${stats.upcoming} upcoming`,
       icon: Calendar,
+      trend: "up",
     },
     {
       title: "Active Medications",
       value: stats.activeMedications.toString(),
       description: `${medications.length} total medications`,
       icon: Pill,
+      trend: "neutral",
     },
     {
       title: "Tasks",
       value: `${stats.pendingTasks}`,
       description: `${stats.overdueTasks} overdue tasks`,
       icon: CheckSquare,
+      trend: stats.overdueTasks > 0 ? "down" : "up",
     },
   ];
 
@@ -382,20 +423,34 @@ export default function Dashboard() {
       <Navbar />
 
       <main className="flex-1 space-y-6 p-4 pt-6 md:p-8">
-        {/* ... stats cards section ... */}
+        {/* Stats Overview */}
+        <div className="grid gap-4 md:gap-6 grid-cols-1 md:grid-cols-3">
+          {dashboardStats.map((stat, index) => (
+            <StatCard
+              key={index}
+              title={stat.title}
+              value={stat.value}
+              description={stat.description}
+              icon={stat.icon}
+              trend={stat.trend}
+            />
+          ))}
+        </div>
 
+        {/* Main Content */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          <Card className="lg:col-span-1">
+          {/* Events Card */}
+          <Card className="lg:col-span-1 overflow-hidden group hover:shadow-soft transition-all duration-200">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="font-medium">Upcoming Events</CardTitle>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => navigate("/calendar")}
-                className="text-sm"
+                className="text-sm group"
               >
                 View Calendar
-                <ArrowRight className="ml-2 h-4 w-4" />
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
             </CardHeader>
             <CardContent>
@@ -411,17 +466,18 @@ export default function Dashboard() {
             </CardContent>
           </Card>
 
-          <Card className="lg:col-span-1">
+          {/* Medications Card */}
+          <Card className="lg:col-span-1 overflow-hidden group hover:shadow-soft transition-all duration-200">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="font-medium">Current Medications</CardTitle>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => navigate("/medications")}
-                className="text-sm"
+                className="text-sm group"
               >
                 Manage Medications
-                <ArrowRight className="ml-2 h-4 w-4" />
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
             </CardHeader>
             <CardContent>
@@ -440,17 +496,18 @@ export default function Dashboard() {
             </CardContent>
           </Card>
 
-          <Card className="lg:col-span-1">
+          {/* Tasks Card */}
+          <Card className="lg:col-span-1 overflow-hidden group hover:shadow-soft transition-all duration-200">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="font-medium">Tasks</CardTitle>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => navigate("/tasks")}
-                className="text-sm"
+                className="text-sm group"
               >
                 View All Tasks
-                <ArrowRight className="ml-2 h-4 w-4" />
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
             </CardHeader>
             <CardContent>
@@ -467,7 +524,7 @@ export default function Dashboard() {
           </Card>
         </div>
 
-        <div className="h-16 md:hidden" />
+        <div className="h-16 md:hidden" aria-hidden="true" />
       </main>
     </div>
   );
