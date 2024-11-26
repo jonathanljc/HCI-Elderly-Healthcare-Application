@@ -2,7 +2,7 @@
 
 ElderlyHealth is a user-friendly mobile web application designed to help elderly users manage their health routines, medications, and appointments.
 
-![ElderlyHealth Dashboard]()
+![ElderlyHealth Dashboard](https://github.com/inf2002/inf2002-team10-2024/blob/refactoring/Screenshot.png)
 
 ## Features
 
