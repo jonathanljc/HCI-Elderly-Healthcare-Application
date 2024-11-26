@@ -8,7 +8,6 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
 import { User, Key, Loader2, ArrowRight } from "lucide-react";
 import { Logo } from "@/components/Logo";
 
@@ -20,16 +19,11 @@ export default function Login() {
     e.preventDefault();
     setIsLoading(true);
 
-    // Simulate loading
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
-    // Simply navigate to dashboard without authentication
-    navigate("/dashboard");
-    setIsLoading(false);
-  };
-
-  const handleSignUp = () => {
-    navigate("/signup");
+    // Simulate a brief loading state
+    setTimeout(() => {
+      setIsLoading(false);
+      navigate("/dashboard");
+    }, 500);
   };
 
   return (
@@ -103,12 +97,12 @@ export default function Login() {
                 )}
               </Button>
               <div className="text-sm text-center text-muted-foreground">
-                Don't have an account?{" "}
+                Don&apos;t have an account?{" "}
                 <Button
                   type="button"
                   variant="link"
                   className="px-0 font-normal"
-                  onClick={handleSignUp}
+                  onClick={() => navigate("/signup")}
                 >
                   Sign up
                 </Button>
