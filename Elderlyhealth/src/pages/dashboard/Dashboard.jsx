@@ -13,6 +13,8 @@ import {
   PartyPopper,
   CalendarDays,
   AlertCircle,
+  CheckCircle2,
+  XCircle,
 } from "lucide-react";
 import { Navbar } from "@/components/navigation/Navbar";
 import { Badge } from "@/components/ui/badge";
