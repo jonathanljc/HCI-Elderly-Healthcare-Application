@@ -1,7 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import { Plus, Clock, AlertCircle, Pill, Calendar, Info } from "lucide-react";
+import { format, parseISO } from "date-fns";
+import {
+  Plus,
+  Clock,
+  AlertCircle,
+  Pill,
+  Calendar,
+  Info,
+  CheckCircle2,
+  Key,
+} from "lucide-react";
 import {
   Card,
   CardContent,
@@ -32,24 +41,28 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 
 const MedicationForm = ({ onSubmit, initialData = null }) => {
-  const form = useForm({
-    defaultValues: {
-      name: initialData?.name || "",
-      dosage: initialData?.dosage || "",
-      frequency: initialData?.frequency || "daily",
-      timing: initialData?.timing || [],
-      notes: initialData?.notes || "",
-      startDate: initialData?.startDate || "",
-      endDate: initialData?.endDate || "",
-    },
+  const [formData, setFormData] = useState({
+    name: initialData?.name || "",
+    dosage: initialData?.dosage || "",
+    frequency: initialData?.frequency || "daily",
+    timing: initialData?.timing || "",
+    notes: initialData?.notes || "",
+    startDate: initialData?.startDate || "",
+    endDate: initialData?.endDate || "",
   });
 
-  const handleSubmit = form.handleSubmit((data) => {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
     onSubmit({
-      ...data,
+      ...formData,
       id: initialData?.id || Date.now(),
     });
-  });
+  };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -57,8 +70,11 @@ const MedicationForm = ({ onSubmit, initialData = null }) => {
         <Label htmlFor="name">Medication Name</Label>
         <Input
           id="name"
-          {...form.register("name", { required: true })}
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
           placeholder="Enter medication name"
+          required
         />
       </div>
 
@@ -67,16 +83,21 @@ const MedicationForm = ({ onSubmit, initialData = null }) => {
           <Label htmlFor="dosage">Dosage</Label>
           <Input
             id="dosage"
-            {...form.register("dosage", { required: true })}
+            name="dosage"
+            value={formData.dosage}
+            onChange={handleChange}
             placeholder="e.g., 50mg"
+            required
           />
         </div>
 
         <div className="space-y-2">
           <Label htmlFor="frequency">Frequency</Label>
           <Select
-            onValueChange={(value) => form.setValue("frequency", value)}
-            defaultValue={form.getValues("frequency")}
+            value={formData.frequency}
+            onValueChange={(value) =>
+              setFormData((prev) => ({ ...prev, frequency: value }))
+            }
           >
             <SelectTrigger>
               <SelectValue placeholder="Select frequency" />
@@ -96,22 +117,44 @@ const MedicationForm = ({ onSubmit, initialData = null }) => {
           <Label htmlFor="startDate">Start Date</Label>
           <Input
             id="startDate"
+            name="startDate"
             type="date"
-            {...form.register("startDate", { required: true })}
+            value={formData.startDate}
+            onChange={handleChange}
+            required
           />
         </div>
 
         <div className="space-y-2">
           <Label htmlFor="endDate">End Date (Optional)</Label>
-          <Input id="endDate" type="date" {...form.register("endDate")} />
+          <Input
+            id="endDate"
+            name="endDate"
+            type="date"
+            value={formData.endDate}
+            onChange={handleChange}
+          />
         </div>
+      </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="timing">Time of Day</Label>
+        <Input
+          id="timing"
+          name="timing"
+          value={formData.timing}
+          onChange={handleChange}
+          placeholder="e.g., Morning, After meals"
+        />
       </div>
 
       <div className="space-y-2">
         <Label htmlFor="notes">Notes</Label>
         <Textarea
           id="notes"
-          {...form.register("notes")}
+          name="notes"
+          value={formData.notes}
+          onChange={handleChange}
           placeholder="Add any special instructions or notes"
           className="h-20"
         />
@@ -125,18 +168,29 @@ const MedicationForm = ({ onSubmit, initialData = null }) => {
 };
 
 const MedicationCard = ({ medication, onEdit, onDelete }) => {
-  const getStatusBadge = () => {
+  const getStatusStyles = () => {
     const today = new Date();
     const startDate = new Date(medication.startDate);
     const endDate = medication.endDate ? new Date(medication.endDate) : null;
 
     if (today < startDate) {
-      return <Badge variant="secondary">Not Started</Badge>;
+      return {
+        badge: <Badge variant="secondary">Starting Soon</Badge>,
+        indicator: "bg-yellow-500",
+      };
     } else if (endDate && today > endDate) {
-      return <Badge variant="outline">Completed</Badge>;
+      return {
+        badge: <Badge variant="outline">Completed</Badge>,
+        indicator: "bg-gray-400",
+      };
     }
-    return <Badge variant="success">Active</Badge>;
+    return {
+      badge: <Badge variant="success">Active</Badge>,
+      indicator: "bg-green-500",
+    };
   };
+
+  const styles = getStatusStyles();
 
   return (
     <Card className="group">
@@ -147,9 +201,10 @@ const MedicationCard = ({ medication, onEdit, onDelete }) => {
             <CardDescription className="flex items-center gap-1 mt-1">
               <Clock className="h-3 w-3" />
               {medication.frequency}
+              {medication.timing && ` • ${medication.timing}`}
             </CardDescription>
           </div>
-          {getStatusBadge()}
+          {styles.badge}
         </div>
       </CardHeader>
       <CardContent className="pb-2">
@@ -158,9 +213,20 @@ const MedicationCard = ({ medication, onEdit, onDelete }) => {
             <Pill className="h-4 w-4 text-muted-foreground" />
             <span>{medication.dosage}</span>
           </div>
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <Calendar className="h-4 w-4" />
+            <span>
+              Starts: {format(new Date(medication.startDate), "MMM d, yyyy")}
+              {medication.endDate &&
+                ` • Ends: ${format(
+                  new Date(medication.endDate),
+                  "MMM d, yyyy"
+                )}`}
+            </span>
+          </div>
           {medication.notes && (
             <div className="flex items-start gap-2 text-sm text-muted-foreground">
-              <Info className="h-4 w-4 mt-0.5" />
+              <AlertCircle className="h-4 w-4 mt-0.5" />
               <span>{medication.notes}</span>
             </div>
           )}
@@ -255,6 +321,57 @@ export default function MedicationList() {
           Add Medication
         </Button>
       </div>
+
+      {/* Instructions Card */}
+      <Card className="bg-muted/50">
+        <CardContent className="p-4">
+          <div className="flex items-start gap-3">
+            <Info className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
+            <div className="space-y-3 text-muted-foreground">
+              <p className="font-medium text-base">How to Use Medications:</p>
+
+              {/* Instructions */}
+              <ul className="space-y-2 text-sm">
+                <li className="flex items-center gap-2">
+                  <Plus className="h-4 w-4" />
+                  <span>Add new medications with dosage and schedule</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Clock className="h-4 w-4" />
+                  <span>Track active and completed medications</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <AlertCircle className="h-4 w-4" />
+                  <span>Monitor start and end dates</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <Calendar className="h-4 w-4" />
+                  <span>Set medication frequencies and timings</span>
+                </li>
+              </ul>
+
+              {/* Status Indicators */}
+              <div className="pt-2 border-t">
+                <p className="text-sm font-medium mb-2">Status Indicators:</p>
+                <ul className="space-y-1.5">
+                  <li className="flex gap-2 items-center text-sm">
+                    <div className="h-3 w-3 rounded-full bg-green-500" />
+                    <span>Active medications</span>
+                  </li>
+                  <li className="flex gap-2 items-center text-sm">
+                    <div className="h-3 w-3 rounded-full bg-yellow-500" />
+                    <span>Starting soon</span>
+                  </li>
+                  <li className="flex gap-2 items-center text-sm">
+                    <div className="h-3 w-3 rounded-full bg-gray-400" />
+                    <span>Completed medications</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
 
       <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
         <DialogContent className="sm:max-w-[425px]">
