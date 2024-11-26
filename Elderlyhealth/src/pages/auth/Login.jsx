@@ -1,116 +1,96 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardHeader,
-  CardContent,
-  CardFooter,
-} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { User, Key, Loader2, ArrowRight } from "lucide-react";
-import { Logo } from "@/components/Logo";
+import { Checkbox } from "@/components/ui/checkbox";
+import { User, Key } from "lucide-react";
+import AuthWrapper from "@/components/auth/AuthWrapper";
 
 export default function Login() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
 
-  const handleLogin = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
 
-    // Simulate a brief loading state
-    setTimeout(() => {
-      setIsLoading(false);
-      navigate("/dashboard");
-    }, 500);
+    // Simulate an API call
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
+    // Update isLoading state
+    setIsLoading(false);
+
+    // Navigate to the dashboard
+    navigate("/dashboard");
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background px-4">
-      <div className="w-full max-w-sm">
-        <Card className="w-full">
-          <CardHeader className="space-y-1">
-            <div className="flex flex-col items-center gap-4">
-              <Logo className="w-16 h-16 text-primary" />
-              <div className="space-y-1 text-center">
-                <h1 className="text-3xl font-bold tracking-tight text-primary">
-                  ElderlyHealth
-                </h1>
-                <p className="text-sm text-muted-foreground">
-                  Your daily health companion
-                </p>
-              </div>
-            </div>
-          </CardHeader>
-          <form onSubmit={handleLogin}>
-            <CardContent className="space-y-4">
-              <div className="space-y-2">
-                <div className="relative">
-                  <User className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    type="email"
-                    placeholder="Email"
-                    className="pl-9"
-                    disabled={isLoading}
-                  />
-                </div>
-              </div>
-              <div className="space-y-2">
-                <div className="relative">
-                  <Key className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    type="password"
-                    placeholder="Password"
-                    className="pl-9"
-                    disabled={isLoading}
-                  />
-                </div>
-              </div>
-              <div className="flex items-center justify-between text-sm">
-                <label className="flex items-center space-x-2">
-                  <input type="checkbox" className="rounded border-gray-300" />
-                  <span>Remember me</span>
-                </label>
-                <Button
-                  type="button"
-                  variant="link"
-                  className="px-0 font-normal"
-                  onClick={() => navigate("/forgot-password")}
-                >
-                  Forgot password?
-                </Button>
-              </div>
-            </CardContent>
-            <CardFooter className="flex flex-col gap-4">
-              <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Please wait
-                  </>
-                ) : (
-                  <>
-                    Sign In
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </>
-                )}
-              </Button>
-              <div className="text-sm text-center text-muted-foreground">
-                Don&apos;t have an account?{" "}
-                <Button
-                  type="button"
-                  variant="link"
-                  className="px-0 font-normal"
-                  onClick={() => navigate("/signup")}
-                >
-                  Sign up
-                </Button>
-              </div>
-            </CardFooter>
-          </form>
-        </Card>
-      </div>
-    </div>
+    <AuthWrapper>
+      <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Email Input */}
+        <div className="space-y-4">
+          <div className="relative">
+            <User className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
+            <Input
+              type="email"
+              placeholder="Email"
+              className="pl-10 h-12 bg-white/60 border-gray-200 focus:bg-white transition-colors"
+            />
+          </div>
+
+          {/* Password Input */}
+          <div className="relative">
+            <Key className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
+            <Input
+              type="password"
+              placeholder="Password"
+              className="pl-10 h-12 bg-white/60 border-gray-200 focus:bg-white transition-colors"
+            />
+          </div>
+        </div>
+
+        {/* Remember Me & Forgot Password */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <Checkbox
+              id="remember"
+              checked={rememberMe}
+              onCheckedChange={setRememberMe}
+              className="border-gray-300"
+            />
+            <label htmlFor="remember" className="text-sm text-gray-600">
+              Remember me
+            </label>
+          </div>
+          <Button
+            variant="link"
+            className="px-0 text-blue-600 hover:text-blue-700"
+          >
+            Forgot password?
+          </Button>
+        </div>
+
+        {/* Sign In Button */}
+        <Button
+          type="submit"
+          className="w-full h-12 text-base bg-blue-600 hover:bg-blue-700 transition-colors"
+          disabled={isLoading}
+        >
+          {isLoading ? "Signing in..." : "Sign In"}
+        </Button>
+
+        {/* Sign Up Link */}
+        <div className="text-center text-sm">
+          <span className="text-gray-600">Don&apos;t have an account? </span>
+          <Link
+            to="/signup"
+            className="text-blue-600 hover:text-blue-700 font-medium"
+          >
+            Sign up
+          </Link>
+        </div>
+      </form>
+    </AuthWrapper>
   );
 }

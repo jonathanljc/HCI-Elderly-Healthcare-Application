@@ -43,15 +43,15 @@ export default function Layout() {
   };
 
   return (
-    <div className="relative min-h-screen bg-background overflow-x-hidden">
+    <div className="relative min-h-screen bg-background">
       {/* Background Elements */}
-      <div className="fixed inset-0 pointer-events-none">
+      <div className="fixed inset-0 -z-10">
         <div className="grid-background" />
         <div className="background-glow" />
 
         {/* Accent Decorations */}
         <div
-          className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] transform translate-x-1/2 -translate-y-1/2 transition-transform duration-1000 ease-out"
+          className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] transform translate-x-1/2 -translate-y-1/2"
           style={{
             transform: `translate(50%, -50%) translateY(${
               scrollPosition * 0.2
@@ -59,7 +59,7 @@ export default function Layout() {
           }}
         />
         <div
-          className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] transform -translate-x-1/2 translate-y-1/2 transition-transform duration-1000 ease-out"
+          className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] transform -translate-x-1/2 translate-y-1/2"
           style={{
             transform: `translate(-50%, 50%) translateY(${
               -scrollPosition * 0.2
@@ -69,22 +69,17 @@ export default function Layout() {
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 flex flex-col min-h-screen">
+      <div className="relative z-10">
         <Header title={getPageTitle()} showBack={shouldShowBack()} />
-        <main className="flex-1 pt-14 pb-16 px-4">
-          <div className="max-w-7xl mx-auto">
+        <main className="pt-14 pb-20">
+          <div className="px-4 max-w-7xl mx-auto">
             <Outlet />
           </div>
         </main>
-        <Navbar />
       </div>
 
-      {/* Scroll Fade Effect */}
-      {scrollPosition > 0 && (
-        <div className="pointer-events-none fixed inset-0 z-20 transition-opacity duration-300">
-          <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent" />
-        </div>
-      )}
+      {/* Navbar - No blur effect */}
+      <Navbar />
     </div>
   );
 }

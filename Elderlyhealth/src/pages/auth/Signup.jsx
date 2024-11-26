@@ -2,14 +2,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import {
   User,
@@ -22,7 +14,15 @@ import {
   ArrowLeft,
   CheckCircle2,
 } from "lucide-react";
-import { Logo } from "@/components/Logo";
+import AuthWrapper from "@/components/auth/AuthWrapper";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Link } from "react-router-dom";
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -60,195 +60,188 @@ export default function Signup() {
     navigate("/dashboard");
   };
 
-  const renderStepOne = () => (
-    <>
-      <CardHeader className="space-y-1">
-        <div className="flex flex-col items-center gap-4">
-          <Logo className="w-16 h-16 text-primary" />
-          <div className="space-y-1 text-center">
-            <h1 className="text-3xl font-bold tracking-tight text-primary">
-              Create Account
-            </h1>
-            <p className="text-sm text-muted-foreground">
-              Enter your basic information
-            </p>
-          </div>
+  const StepOne = () => (
+    <div className="space-y-4 animate-fade-in">
+      <div className="space-y-2">
+        <div className="relative">
+          <User className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+          <Input
+            name="fullName"
+            placeholder="Full Name"
+            className="pl-9"
+            value={formData.fullName}
+            onChange={handleChange}
+          />
         </div>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="space-y-2">
-          <div className="relative">
-            <User className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
-            <Input
-              name="fullName"
-              placeholder="Full Name"
-              className="pl-9"
-              value={formData.fullName}
-              onChange={handleChange}
-            />
-          </div>
+      </div>
+      <div className="space-y-2">
+        <div className="relative">
+          <Mail className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+          <Input
+            type="email"
+            name="email"
+            placeholder="Email"
+            className="pl-9"
+            value={formData.email}
+            onChange={handleChange}
+          />
         </div>
-        <div className="space-y-2">
-          <div className="relative">
-            <Mail className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
-            <Input
-              type="email"
-              name="email"
-              placeholder="Email"
-              className="pl-9"
-              value={formData.email}
-              onChange={handleChange}
-            />
-          </div>
+      </div>
+      <div className="space-y-2">
+        <div className="relative">
+          <Key className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+          <Input
+            type="password"
+            name="password"
+            placeholder="Password"
+            className="pl-9"
+            value={formData.password}
+            onChange={handleChange}
+          />
         </div>
-        <div className="space-y-2">
-          <div className="relative">
-            <Key className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
-            <Input
-              type="password"
-              name="password"
-              placeholder="Password"
-              className="pl-9"
-              value={formData.password}
-              onChange={handleChange}
-            />
-          </div>
+      </div>
+      <div className="space-y-2">
+        <div className="relative">
+          <Key className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+          <Input
+            type="password"
+            name="confirmPassword"
+            placeholder="Confirm Password"
+            className="pl-9"
+            value={formData.confirmPassword}
+            onChange={handleChange}
+          />
         </div>
-        <div className="space-y-2">
-          <div className="relative">
-            <Key className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
-            <Input
-              type="password"
-              name="confirmPassword"
-              placeholder="Confirm Password"
-              className="pl-9"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-            />
-          </div>
-        </div>
-      </CardContent>
-    </>
+      </div>
+    </div>
   );
 
-  const renderStepTwo = () => (
-    <>
-      <CardHeader className="space-y-1">
-        <div className="flex flex-col items-center gap-4">
-          <Logo className="w-16 h-16 text-primary" />
-          <div className="space-y-1 text-center">
-            <h1 className="text-3xl font-bold tracking-tight text-primary">
-              Health Information
-            </h1>
-            <p className="text-sm text-muted-foreground">
-              Help us provide better care
-            </p>
-          </div>
+  const StepTwo = () => (
+    <div className="space-y-4 animate-fade-in">
+      <div className="space-y-2">
+        <div className="relative">
+          <Phone className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+          <Input
+            name="phone"
+            placeholder="Phone Number"
+            className="pl-9"
+            value={formData.phone}
+            onChange={handleChange}
+          />
         </div>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="space-y-2">
-          <div className="relative">
-            <Phone className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
-            <Input
-              name="phone"
-              placeholder="Phone Number"
-              className="pl-9"
-              value={formData.phone}
-              onChange={handleChange}
-            />
-          </div>
+      </div>
+      <div className="space-y-2">
+        <div className="relative">
+          <Calendar className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+          <Input
+            type="date"
+            name="dateOfBirth"
+            placeholder="Date of Birth"
+            className="pl-9"
+            value={formData.dateOfBirth}
+            onChange={handleChange}
+          />
         </div>
-        <div className="space-y-2">
-          <div className="relative">
-            <Calendar className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
-            <Input
-              type="date"
-              name="dateOfBirth"
-              placeholder="Date of Birth"
-              className="pl-9"
-              value={formData.dateOfBirth}
-              onChange={handleChange}
-            />
-          </div>
+      </div>
+      <div className="space-y-2">
+        <div className="relative">
+          <Phone className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+          <Input
+            name="emergencyContact"
+            placeholder="Emergency Contact Number"
+            className="pl-9"
+            value={formData.emergencyContact}
+            onChange={handleChange}
+          />
         </div>
-        <div className="space-y-2">
-          <div className="relative">
-            <Phone className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
-            <Input
-              name="emergencyContact"
-              placeholder="Emergency Contact Number"
-              className="pl-9"
-              value={formData.emergencyContact}
-              onChange={handleChange}
-            />
-          </div>
+      </div>
+      <div className="space-y-2">
+        <div className="relative">
+          <Heart className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
+          <Input
+            name="medicalConditions"
+            placeholder="Medical Conditions (optional)"
+            className="pl-9"
+            value={formData.medicalConditions}
+            onChange={handleChange}
+          />
         </div>
-        <div className="space-y-2">
-          <div className="relative">
-            <Heart className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
-            <Input
-              name="medicalConditions"
-              placeholder="Medical Conditions (optional)"
-              className="pl-9"
-              value={formData.medicalConditions}
-              onChange={handleChange}
-            />
-          </div>
-        </div>
-      </CardContent>
-    </>
+      </div>
+    </div>
+  );
+
+  const renderStepIndicator = () => (
+    <div className="flex items-center justify-center mb-6 relative">
+      <div className="absolute w-full border-t border-muted" />
+      <div className="relative flex gap-3 px-2 bg-card">
+        <div
+          className={`w-2.5 h-2.5 rounded-full ${
+            step >= 1 ? "bg-primary" : "bg-muted"
+          }`}
+        />
+        <div
+          className={`w-2.5 h-2.5 rounded-full ${
+            step >= 2 ? "bg-primary" : "bg-muted"
+          }`}
+        />
+      </div>
+    </div>
   );
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background px-4 py-8">
-      <div className="w-full max-w-sm">
-        <Card className="w-full">
-          <form onSubmit={handleSubmit}>
-            {step === 1 ? renderStepOne() : renderStepTwo()}
-            <CardFooter className="flex flex-col gap-4">
-              <div className="flex w-full gap-4">
-                {step === 2 && (
-                  <Button
-                    type="button"
-                    variant="outline"
-                    className="flex-1"
-                    onClick={() => setStep(1)}
-                  >
-                    <ArrowLeft className="mr-2 h-4 w-4" />
-                    Back
-                  </Button>
-                )}
-                <Button type="submit" className="flex-1" disabled={isLoading}>
-                  {isLoading ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Creating Account
-                    </>
-                  ) : step === 1 ? (
-                    <>
-                      Next
-                      <CheckCircle2 className="ml-2 h-4 w-4" />
-                    </>
-                  ) : (
-                    "Complete Signup"
-                  )}
-                </Button>
-              </div>
-              <div className="text-sm text-center text-muted-foreground">
-                Already have an account?{" "}
-                <Button
-                  variant="link"
-                  className="px-0 font-normal"
-                  onClick={() => navigate("/login")}
-                >
-                  Sign in
-                </Button>
-              </div>
-            </CardFooter>
-          </form>
-        </Card>
-      </div>
-    </div>
+    <AuthWrapper>
+      <form onSubmit={handleSubmit} className="space-y-6">
+        {renderStepIndicator()}
+        <div className="text-center mb-6">
+          <h3 className="text-lg font-semibold">
+            {step === 1 ? "Create Account" : "Health Information"}
+          </h3>
+          <p className="text-sm text-muted-foreground">
+            {step === 1
+              ? "Enter your basic information"
+              : "Help us provide better care"}
+          </p>
+        </div>
+        {step === 1 ? <StepOne /> : <StepTwo />}
+        <div className="flex gap-3">
+          {step === 2 && (
+            <Button
+              type="button"
+              variant="outline"
+              className="flex-1"
+              onClick={() => setStep(1)}
+            >
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Back
+            </Button>
+          )}
+          <Button type="submit" className="flex-1" disabled={isLoading}>
+            {isLoading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Creating Account
+              </>
+            ) : step === 1 ? (
+              <>
+                Next
+                <CheckCircle2 className="ml-2 h-4 w-4" />
+              </>
+            ) : (
+              "Complete Signup"
+            )}
+          </Button>
+        </div>
+
+        <div className="text-center text-sm text-muted-foreground">
+          Already have an account?{" "}
+          <Link
+            to="/login"
+            className="font-medium text-primary hover:text-primary/90 transition-colors"
+          >
+            Sign in
+          </Link>
+        </div>
+      </form>
+    </AuthWrapper>
   );
 }

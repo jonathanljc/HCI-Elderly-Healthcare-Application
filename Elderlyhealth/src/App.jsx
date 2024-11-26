@@ -1,4 +1,3 @@
-// src/App.jsx
 import { Routes, Route, Navigate } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
 import Login from "@/pages/auth/Login";
@@ -11,42 +10,26 @@ import { Toaster } from "@/components/ui/toaster";
 
 function App() {
   return (
-    <div className="min-h-screen bg-background">
+    <>
       <Routes>
-        {/* Redirect root to login */}
-        <Route path="/" element={<Navigate to="/login" replace />} />
-
-        {/* Auth Routes - No Layout */}
+        {/* Auth Routes */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/" element={<Navigate to="/login" replace />} />
 
-        {/* Main App Routes - With Layout */}
+        {/* Protected Routes */}
         <Route element={<Layout />}>
           <Route path="/dashboard" element={<Dashboard />} />
-
-          {/* Calendar Routes */}
           <Route path="/calendar" element={<CalendarPage />} />
-
-          {/* <Route path="/events" element={<EventManagementPage />} /> */}
-
-          {/* Medication Routes */}
           <Route path="/medications" element={<MedicationList />} />
-          <Route path="/medications/new" element={<MedicationList />} />
-          <Route path="/medications/:id" element={<MedicationList />} />
-          <Route path="/medications/:id/edit" element={<MedicationList />} />
-
-          {/* Task Routes */}
           <Route path="/tasks" element={<TaskList />} />
-          <Route path="/tasks/new" element={<TaskList />} />
-          <Route path="/tasks/:id" element={<TaskList />} />
-          <Route path="/tasks/:id/edit" element={<TaskList />} />
         </Route>
 
-        {/* Catch-all route - redirect to login */}
+        {/* Catch-all route */}
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
       <Toaster />
-    </div>
+    </>
   );
 }
 
