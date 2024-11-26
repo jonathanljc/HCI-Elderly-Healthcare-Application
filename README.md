@@ -33,7 +33,7 @@ ElderlyHealth is a user-friendly mobile web application designed to help elderly
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/elderhealth.git
+git clone [https://github.com/inf2002/inf2002-team10-2024.git]
 
 # Install dependencies
 cd elderlyhealth
