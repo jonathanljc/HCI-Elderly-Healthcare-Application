@@ -24,7 +24,7 @@ ElderlyHealth is a user-friendly mobile web application designed to help elderly
   - Set priorities and due dates
   - Track task completion
 
-- 📊 **Health Dashboard**
+- 📊 **Health Dashboard**![Screenshot 2024-11-26 at 11.27.33 AM](../../Screenshot 2024-11-26 at 11.27.33 AM.png)
   - View upcoming events
   - Check medication status
   - Monitor task progress
