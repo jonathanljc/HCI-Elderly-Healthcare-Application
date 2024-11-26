@@ -1,13 +1,59 @@
-# inf2002-team10-2024
-This repository is for INF2002 Human Computer Interaction - Team 10
+# ElderlyHealth
 
-It is a web application running on React with Vite. Designed to be viewed on a mobile screen.
+ElderlyHealth is a user-friendly mobile web application designed to help elderly users manage their health routines, medications, and appointments.
 
-## Running the Application (Windows)
-Requirements: npm
+![ElderlyHealth Dashboard]()
 
-- Head to the /inf2002-project/ folder within this repo: `cd .\inf2002-project\`
-- Install the packages needed through npm: `npm i`
-- Once installed, start the application: `npm run dev`
-- Open a browser and head to the Local IP given in the terminal: `http://localhost:5173` (for our example)
+## Features
 
+- 📅 **Calendar Management**
+
+  - Schedule and track appointments
+  - Set up recurring health events
+  - Get reminders for upcoming events
+
+- 💊 **Medication Tracking**
+
+  - Log daily medications
+  - Track medication schedules
+  - Set medication reminders
+
+- ✅ **Task Management**
+
+  - Create health-related tasks
+  - Set priorities and due dates
+  - Track task completion
+
+- 📊 **Health Dashboard**
+  - View upcoming events
+  - Check medication status
+  - Monitor task progress
+
+## Getting Started
+
+```bash
+# Clone the repository
+git clone https://github.com/your-username/elderhealth.git
+
+# Install dependencies
+cd elderhealth
+npm install
+
+# Start development server
+npm run dev
+```
+
+## Tech Stack
+
+- React
+- Tailwind CSS
+- shadcn/ui components
+- Local Storage for data persistence
+
+## Usage
+
+1. Sign up for an account
+2. Add your medications and schedules
+3. Create health-related tasks
+4. Schedule appointments and events
+5. Track your progress on the dashboard
