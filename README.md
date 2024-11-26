@@ -36,7 +36,7 @@ ElderlyHealth is a user-friendly mobile web application designed to help elderly
 git clone https://github.com/your-username/elderhealth.git
 
 # Install dependencies
-cd elderhealth
+cd elderlyhealth
 npm install
 
 # Start development server
